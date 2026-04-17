@@ -1,0 +1,27 @@
+<script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.setHeaderColor('#000000'); // تغيير لون شريط تلغرام للأسود
+
+        const AdController = window.Adsgram ? window.Adsgram.init({ blockId: "4266" }) : null;
+
+        async function showAd() {
+            if (!AdController) {
+                alert("Adsgram غير متوفر حالياً");
+                return;
+            }
+
+            try {
+                const result = await AdController.show();
+                if (result.done) {
+                    let currentBal = parseInt(document.getElementById('balance').innerText);
+                    document.getElementById('balance').innerText = currentBal + 10;
+                    tg.HapticFeedback.notificationOccurred('success'); // اهتزاز عند النجاح
+                }
+            } catch (e) {
+                alert("حاول مرة أخرى بعد قليل");
+            }
+        }
+    </script>
+</body>
+</html>
